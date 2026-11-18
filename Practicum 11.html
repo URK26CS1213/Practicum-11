@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MediHive</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #e8f5f2;
+            text-align: center;
+        }
+
+        .container {
+            background-color: white;
+            width: 350px;
+            margin: 40px auto;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px gray;
+        }
+
+        h1 {
+            color: #168b78;
+        }
+
+        input, select {
+            width: 90%;
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid gray;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #168b78;
+            color: white;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #result {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>MediHive</h1>
+    <h3>Patient Registration Form</h3>
+
+    <form onsubmit="processForm(event)">
+
+        <input type="text" id="patient" placeholder="Enter Patient Name">
+        <input type="text" id="age" placeholder="Enter Patient Age">
+        <input type="text" id="phone" placeholder="Enter Phone Number">
+        <input type="text" id="email" placeholder="Enter Email Address">
+
+        <select id="gender">
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <select id="department">
+            <option value="">Select Department</option>
+            <option value="General Medicine">General Medicine</option>
+            <option value="Cardiology">Cardiology</option>
+            <option value="Dermatology">Dermatology</option>
+            <option value="Pediatrics">Pediatrics</option>
+            <option value="Orthopedics">Orthopedics</option>
+        </select>
+
+        <br><br>
+
+        <button type="submit">Register</button>
+
+    </form>
+
+    <h3 id="result"></h3>
+
+</div>
+
+<script>
+
+function processForm(event) {
+
+    event.preventDefault();
+
+    // Get form values
+    let patient = document.getElementById("patient").value.trim();
+    let age = document.getElementById("age").value.trim();
+    let phone = document.getElementById("phone").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let gender = document.getElementById("gender").value;
+    let department = document.getElementById("department").value;
+
+    // Check empty fields
+    if (patient == "" || age == "" ||
+        phone == "" || email == "" ||
+        gender == "" || department == "") {
+
+        document.getElementById("result").innerHTML =
+        "Please fill all the fields!";
+
+    }
+
+    // Validate age and phone number
+    else if (!/^[0-9]+$/.test(age) ||
+        Number(age) < 1 || Number(age) > 120 ||
+        !/^[0-9]{10}$/.test(phone)) {
+
+        document.getElementById("result").innerHTML =
+        "Enter valid age and 10-digit phone number!";
+
+    }
+
+    // Validate email
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+
+        document.getElementById("result").innerHTML =
+        "Enter a valid email address!";
+
+    }
+
+    // If all details are correct
+    else {
+
+        document.getElementById("result").innerHTML =
+        "Registration Successful!<br><br>" +
+        "Patient Name: " + patient + "<br>" +
+        "Age: " + age + "<br>" +
+        "Phone: " + phone + "<br>" +
+        "Email: " + email + "<br>" +
+        "Gender: " + gender + "<br>" +
+        "Department: " + department;
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
